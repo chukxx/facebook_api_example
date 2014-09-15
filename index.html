@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+	<head>
+		<!-- JQUERY SCRIPT SOURCE -->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+		</script>
+		
+		<title>
+			JSONP
+		</title>
+	</head>
+	<body>
+		<div>
+			<p>
+				<input type="text" id="facebookIDfield" placeholder="Facebook Username or ID" />
+			</p>
+			<p>
+				<input type="button" value="connect" id="connectButton"/>
+			</p>
+			<p id="resultWindow">
+
+			</p>
+
+			<div align="center">
+				<p>
+				<img id="fbProfileImage" src="https://graph.facebook.com/v1.0/1111111111111/picture?type=large"/>
+				</p>
+				<h3>
+					<span id="fbName">
+						[Facebook Name]
+					</span>
+				</h3>
+			</div>
+		</div>		
+	</body>
+	<script type="text/javascript">
+	var JSONTest =
+	{
+		jsonResult:null,
+		connectButton:null,
+		facebookIDfield:null,
+		resultWindow:null,
+		//initialize function
+		init:function()
+		{
+			console.log("INITIALIZE");
+			JSONTest.connectButton = $("#connectButton");
+			JSONTest.facebookIDfield = $("#facebookIDfield");
+			JSONTest.resultWindow = $("#resultWindow");
+			JSONTest.initEvent();
+		},
+		//INITIALIZE EVENTS
+		initEvent:function()
+		{
+			JSONTest.connectButton.click(JSONTest.onConnect);
+		},
+		onConnect:function(e)
+		{
+			var fbuid = JSONTest.facebookIDfield.val();
+			console.log(fbuid);
+			JSONTest.resultWindow.text('');
+			if(fbuid)
+			{
+ 				fbuid = fbuid.trim();
+				if(fbuid.length>1)
+				{
+					//call connect funtion
+					JSONTest.connect(fbuid);
+					return;
+				}
+				
+			}
+			JSONTest.resultWindow.text('You made an invalid input');
+			
+		},
+		//Connect to Facebook RESTful API
+		connect:function(userid)
+		{
+			$.ajax
+			(
+				{
+					url:"https://graph.facebook.com/v1.0/",
+					dataType:"json",
+					data:
+						{
+							fields:'id,name,picture.type(large)',
+							id:userid
+						},
+					success: JSONTest.onSuccess
+				}				
+			);
+		},
+		//Handle JSON RESPONSE
+		onSuccess:function(response)
+		{
+			JSONTest.jsonResult = response;
+			$("#fbProfileImage").prop("src",JSONTest.jsonResult.picture.data.url);
+			$("#fbName").text(JSONTest.jsonResult.name);
+		}
+	}
+	$(document).ready(JSONTest.init);
+	</script>
+</html>
