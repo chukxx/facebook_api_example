@@ -1,0 +1,46 @@
+
+
+https://www.linkedin.com/uas/oauth2/authorization?response_type=code
+                                           &client_id=77vh8ab0jwdohl
+                                           &scope=r_fullprofile%20r_emailaddress%20r_network
+                                           &state=2h38ds72h3s872hs782h8dh8d
+                                           &redirect_uri=C:/Users/goodson/Desktop/jsonp/facebook_api_example/index.html
+
+
+https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=77vh8ab0jwdohl&scope=r_fullprofile%20r_emailaddress%20r_network&state=2h38ds72h3s872hs782h8dh8d&redirect_uri=http://pediah.com/?linkedin_oath=1
+
+$.post("https://www.linkedin.com/uas/oauth2/accessToken","grant_type=authorization_code&code=AQTcu7KWBXu9VUbDu2Dg6eLipyTEJr5qo5K3EPbqLeWaMl0_yrxqb3VngvBwdwkEcR1d7kAdMM5FxstFRCu1Bobt0pNJj6pp-9ZVtod5zxgfcLyC44c&redirect_uri=http://localhost/projects/social/TW/replay/&client_id=77vh8ab0jwdohl&client_secret=b6kN3MgTMUW5BhIi",function(data){console.log(data)}).error(function(data){
+console.log(data);	
+})
+
+REQUEST
+code:AQTcu7KWBXu9VUbDu2Dg6eLipyTEJr5qo5K3EPbqLeWaMl0_yrxqb3VngvBwdwkEcR1d7kAdMM5FxstFRCu1Bobt0pNJj6pp-9ZVtod5zxgfcLyC44c
+state:2h38ds72h3s872hs782h8dh8d
+
+77vh8ab0jwdohl
+b6kN3MgTMUW5BhIi
+
+https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code
+                                           &code=AUTHORIZATION_CODE
+                                           &redirect_uri=YOUR_REDIRECT_URI
+                                           &client_id=YOUR_API_KEY
+                                           &client_secret=YOUR_SECRET_KEY
+
+
+$.ajax({
+    url: url,
+    dataType : 'jsonp',
+    beforeSend : function(xhr) {
+      // generate base 64 string from username + password
+      //var bytes = Crypto.charenc.Binary.stringToBytes(username + ":" + password);
+      //var base64 = Crypto.util.bytesToBase64(bytes);
+      // set header
+      xhr.setRequestHeader("Authorization", "Bearer " + base64);
+    },
+    error : function() {
+      // error handler
+    },
+    success: function(data) {
+        // success handler
+    }
+});
